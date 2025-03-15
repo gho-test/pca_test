@@ -46,11 +46,12 @@
             text-align: center;
         }
 
+        /* PNG 로고를 위한 스타일 */
         .logo-image {
             width: 80%;
             max-width: 300px;
             height: auto;
-            filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.6));
+            filter: drop-shadow(0 0 10px rgba(255,, 255, 255, 0.6));
             transition: transform 0.3s ease;
             will-change: transform;
         }
@@ -85,74 +86,23 @@
                 bottom: 15px;
             }
         }
-
-        /* 프리뷰를 위한 추가 스타일 */
-        .previews {
-            position: fixed;
-            bottom: 40px;
-            right: 20px;
-            display: flex;
-            gap: 10px;
-            z-index: 100;
-        }
-        
-        .preview-item {
-            width: 80px;
-            height: 45px;
-            border: 2px solid white;
-            background-size: cover;
-            background-position: center;
-            cursor: pointer;
-            opacity: 0.7;
-            transition: opacity 0.3s, transform 0.3s;
-        }
-        
-        .preview-item:hover {
-            opacity: 1;
-            transform: scale(1.1);
-        }
-        
-        .preview-item.active {
-            opacity: 1;
-            box-shadow: 0 0 0 2px white, 0 0 0 4px #0077CC;
-        }
     </style>
 </head>
 <body>
     <div class="container">
-        <!-- 실제 배경 이미지 3개 -->
-        <div class="background active" id="bg1" style="background-image: url('/api/placeholder/1920/1080'); background-color: #3498db;"></div>
-        <div class="background" id="bg2" style="background-image: url('/api/placeholder/1920/1080'); background-color: #2ecc71;"></div>
-        <div class="background" id="bg3" style="background-image: url('/api/placeholder/1920/1080'); background-color: #e74c3c;"></div>
+        <!-- 실제 배경 이미지 예시 3개 -->
+        <div class="background active" id="bg1" style="background-image: url('images/background1.jpg'); background-color: #0077CC;"></div>
+        <div class="background" id="bg2" style="background-image: url('images/background2.jpg'); background-color: #2ECC71;"></div>
+        <div class="background" id="bg3" style="background-image: url('images/background3.jpg'); background-color: #E74C3C;"></div>
         
         <div class="logo-container">
-            <!-- 로고 이미지 - SVG를 사용하여 PNG 로고 묘사 -->
-            <svg class="logo-image" viewBox="0 0 300 150" xmlns="http://www.w3.org/2000/svg">
-                <defs>
-                    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.9" />
-                        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0.7" />
-                    </linearGradient>
-                </defs>
-                <rect x="50" y="40" width="200" height="70" rx="10" fill="rgba(255,255,255,0.2)" />
-                <path d="M70 75 L100 55 L130 75 L160 55 L190 75 L220 55 L250 75" 
-                      stroke="white" stroke-width="5" fill="none" 
-                      stroke-linecap="round" stroke-linejoin="round" />
-                <text x="75" y="105" font-family="Arial, sans-serif" font-size="24" 
-                      font-weight="bold" fill="white">SKYVIEW</text>
-            </svg>
+            <!-- PNG 로고 이미지 - 여기에 로고 파일 경로 지정 -->
+            <img class="logo-image" src="images/logo.png" alt="SKYVIEW 로고">
         </div>
         
         <!-- 사무실 주소 -->
         <div class="address">
             SKYVIEW HEADQUARTERS • 123 INNOVATION AVENUE, SUITE 500 • SEOUL, SOUTH KOREA 06134
-        </div>
-        
-        <!-- 이미지 프리뷰 -->
-        <div class="previews">
-            <div class="preview-item active" style="background-color: #3498db;" onclick="activateBackground(0)"></div>
-            <div class="preview-item" style="background-color: #2ecc71;" onclick="activateBackground(1)"></div>
-            <div class="preview-item" style="background-color: #e74c3c;" onclick="activateBackground(2)"></div>
         </div>
     </div>
 
@@ -165,52 +115,29 @@
                 document.getElementById('bg3')
             ];
             
-            const previewItems = document.querySelectorAll('.preview-item');
-            
             let currentBg = 0;
-            let intervalId;
             
             // 배경 이미지 전환 함수
             function changeBackground() {
                 // 현재 배경 비활성화
                 backgrounds[currentBg].classList.remove('active');
-                previewItems[currentBg].classList.remove('active');
                 
                 // 다음 배경 인덱스 계산
                 currentBg = (currentBg + 1) % backgrounds.length;
                 
                 // 다음 배경 활성화
                 backgrounds[currentBg].classList.add('active');
-                previewItems[currentBg].classList.add('active');
             }
             
-            // 특정 배경 활성화 함수
-            window.activateBackground = function(index) {
-                // 자동 전환 중지
-                clearInterval(intervalId);
-                
-                // 현재 활성화된 배경 비활성화
-                backgrounds[currentBg].classList.remove('active');
-                previewItems[currentBg].classList.remove('active');
-                
-                // 선택한 배경 활성화
-                currentBg = index;
-                backgrounds[currentBg].classList.add('active');
-                previewItems[currentBg].classList.add('active');
-                
-                // 자동 전환 다시 시작
-                intervalId = setInterval(changeBackground, 5000);
-            };
-            
             // 5초마다 배경 전환
-            intervalId = setInterval(changeBackground, 5000);
+            const intervalId = setInterval(changeBackground, 5000);
             
             // 페이지가 보이지 않을 때 리소스 절약
             document.addEventListener('visibilitychange', function() {
                 if (document.hidden) {
                     clearInterval(intervalId);
                 } else {
-                    intervalId = setInterval(changeBackground, 5000);
+                    setInterval(changeBackground, 5000);
                 }
             });
         });
