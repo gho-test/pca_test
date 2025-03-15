@@ -68,7 +68,7 @@
             text-align: center;
             color: white;
             font-family: 'Georgia', serif;
-            font-size: 8px;
+            font-size: 10px;
             letter-spacing: 1px;
             z-index: 10;
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
@@ -91,18 +91,27 @@
 <body>
     <div class="container">
         <!-- 실제 배경 이미지 예시 3개 -->
-        <div class="background active" id="bg1" style="background-image: url('images/background1.jpg'); background-color: #0077CC;"></div>
-        <div class="background" id="bg2" style="background-image: url('images/background2.jpg'); background-color: #2ECC71;"></div>
-        <div class="background" id="bg3" style="background-image: url('images/background3.jpg'); background-color: #E74C3C;"></div>
+        <div class="background active" id="bg1" style="background-image: url('images/background1.jpg');"></div>
+        <div class="background" id="bg2" style="background-image: url('images/background2.jpg');"></div>
+        <div class="background" id="bg3" style="background-image: url('images/background3.jpg');"></div>
         
         <div class="logo-container">
             <!-- PNG 로고 이미지 - 여기에 로고 파일 경로 지정 -->
-            <img class="logo-image" src="images/logo.png" alt="SKYVIEW 로고">
+            <img class="logo-image" src="images/logo.png" alt="PCA 로고">
         </div>
         
         <!-- 사무실 주소 -->
         <div class="address">
-            SKYVIEW HEADQUARTERS • 123 INNOVATION AVENUE, SUITE 500 • SEOUL, SOUTH KOREA 06134
+            <h1>PlayCodingAcademy Co.,Ltd.</h1>
+            "7F 8 Seolleung-ro 64-gil, Gangnam-gu Seoul, Republic of Korea"
+            <br>
+            "T: +82 (0)2 539 1113"
+            <br>
+            <a href="mailto:joongwon.sim@playcoding.ac">joongwon.sim@playcoding.ac</a>
+            <br>
+            <br>
+            <br>
+            <span class="smaller">copyright © PlayCodingAcademy Co.,LTD. all right reserved.</span>
         </div>
     </div>
 
@@ -116,6 +125,7 @@
             ];
             
             let currentBg = 0;
+            let intervalId;
             
             // 배경 이미지 전환 함수
             function changeBackground() {
@@ -129,8 +139,9 @@
                 backgrounds[currentBg].classList.add('active');
             }
             
+            
             // 5초마다 배경 전환
-            const intervalId = setInterval(changeBackground, 5000);
+            intervalId = setInterval(changeBackground, 5000);
             
             // 페이지가 보이지 않을 때 리소스 절약
             document.addEventListener('visibilitychange', function() {
